@@ -3,21 +3,12 @@
 This is a starting point for Java solutions to the "Build Your Own HTTP server" Challenge
 
 
-# Stage 2 & beyond
 
-Note: This section is for stages 2 and beyond.
+# My Notes
 
-1. Ensure you have `mvn` installed locally
-1. Run `./your_program.sh` to run your program, which is implemented in
-   `src/main/java/Main.java`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+## CRLF Line Endings
 
-# My notes
-
-CRLF
-CR and LF are control characters or bytecode that can be used to mark a line break in a text file.
-
-CR = Carriage Return (\r, 0x0D in hexadecimal, 13 in decimal) — moves the cursor to the beginning of the line without advancing to the next line.
-LF = Line Feed (\n, 0x0A in hexadecimal, 10 in decimal) — moves the cursor down to the next line without returning to the beginning of the line.
-A CR immediately followed by a LF (CRLF, \r\n, or 0x0D0A) moves the cursor to the beginning of the line and then down to the next line.
+- `\r` (Carriage Return): Moves the cursor to the beginning of the line (ASCII 13, 0x0D).
+- `\n` (Line Feed): Moves the cursor to the next line (ASCII 10, 0x0A).
+- `\r\n` (CRLF): Used in protocols like HTTP to mark the end of a line; required to separate HTTP headers and body.
+- A CR immediately followed by an LF (`CRLF`, `\r\n`, or `0x0D0A`) moves the cursor to the beginning of the line and then down to the next line.
