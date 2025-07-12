@@ -1,5 +1,7 @@
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Main {
   public static void main(String[] args) {
@@ -14,9 +16,16 @@ public class Main {
       // Since the tester restarts your program quite often, setting SO_REUSEADDR
       // ensures that we don't run into 'Address already in use' errors
       serverSocket.setReuseAddress(true);
-    
-      serverSocket.accept(); // Wait for connection from client.
+
+      Socket clientSocket = serverSocket.accept(); // Wait for connection from client.
       System.out.println("accepted new connection");
+      String payload = "HTTP/1.1 200 OK\r\n\r\n";
+      OutputStream out = clientSocket.getOutputStream();
+      out.write(payload.getBytes());
+      out.flush();
+      clientSocket.close(); // Close the connection with the client.
+      serverSocket.close(); // Close the server socket.
+      System.out.println("closed connection");
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     }

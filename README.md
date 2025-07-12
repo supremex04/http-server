@@ -14,18 +14,6 @@ and more.
 **Note**: If you're viewing this repo on GitHub, head over to
 [codecrafters.io](https://codecrafters.io) to try the challenge.
 
-# Passing the first stage
-
-The entry point for your HTTP server implementation is in
-`src/main/java/Main.java`. Study and uncomment the relevant code, and push your
-changes to pass the first stage:
-
-```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
-```
-
-Time to move on to the next stage!
 
 # Stage 2 & beyond
 
@@ -36,3 +24,12 @@ Note: This section is for stages 2 and beyond.
    `src/main/java/Main.java`.
 1. Commit your changes and run `git push origin master` to submit your solution
    to CodeCrafters. Test output will be streamed to your terminal.
+
+# My notes
+
+CRLF
+CR and LF are control characters or bytecode that can be used to mark a line break in a text file.
+
+CR = Carriage Return (\r, 0x0D in hexadecimal, 13 in decimal) — moves the cursor to the beginning of the line without advancing to the next line.
+LF = Line Feed (\n, 0x0A in hexadecimal, 10 in decimal) — moves the cursor down to the next line without returning to the beginning of the line.
+A CR immediately followed by a LF (CRLF, \r\n, or 0x0D0A) moves the cursor to the beginning of the line and then down to the next line.
