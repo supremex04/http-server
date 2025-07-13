@@ -8,6 +8,8 @@
 - `\n` (Line Feed): Moves the cursor to the next line (ASCII 10, 0x0A).
 - `\r\n` (CRLF): Used in protocols like HTTP to mark the end of a line; required to separate HTTP headers and body.
 - A CR immediately followed by an LF (`CRLF`, `\r\n`, or `0x0D0A`) moves the cursor to the beginning of the line and then down to the next line.
+
+
 HTTP Request: 
 ```
 // Request line

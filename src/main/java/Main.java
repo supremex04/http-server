@@ -88,7 +88,7 @@ public class Main {
                     }
                 }
 
-                writer.flush(); // Ensure all data is sent
+                writer.flush(); // flush the buffer to the socket
                 System.out.println("Request: " + requestLine);
             }
         }
