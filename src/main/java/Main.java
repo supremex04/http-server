@@ -16,8 +16,7 @@ public class Main {
         logger.info("Logs will appear here!");
 
         try {
-            // ServerSocket creates a server that listens for incoming TCP connections on
-            // port 4221.
+            // ServerSocket creates a server that listens for incoming TCP connections on port 4221
             // This socket does NOT send or receive data directly. it only accepts new
             // client connections.
             ServerSocket serverSocket = new ServerSocket(4221);

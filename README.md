@@ -1,4 +1,3 @@
-[![progress-banner](https://backend.codecrafters.io/progress/http-server/d8f671c0-83b7-4d54-87df-a655c2bd827c)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
 This is a starting point for Java solutions to the "Build Your Own HTTP server" Challenge
 
