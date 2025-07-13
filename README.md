@@ -40,3 +40,9 @@ foobar/1.2.3                  // The value of `User-Agent`                      
 ```
 
 ```BufferedReader``` and ```BufferedWriter``` internally convert byte<>string
+
+Commands:
+```
+$ curl -v 127.0.0.1:4221/echo/abc
+$ curl -v --header "User-Agent: foobar/1.2.3" http://localhost:4221/user-agent
+```
