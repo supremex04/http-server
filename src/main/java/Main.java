@@ -50,8 +50,8 @@ public class Main {
 
             if (requestLine != null) {
                 String[] tokens = requestLine.split("\\s+"); // Split by one or more whitespace characters
-                String method = tokens[0]; // HTTP method (e.g., GET)
-                String path = tokens[1]; // Requested path (e.g., /index.html)
+                String method = tokens[0]; // HTTP method (e.g. GET)
+                String path = tokens[1]; // Requested path (e.g. /index.html)
 
                 // Check for malformed request or unsupported path
                 if (method.equals("GET")) {

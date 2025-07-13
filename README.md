@@ -2,7 +2,6 @@
 This is a starting point for Java solutions to the "Build Your Own HTTP server" Challenge
 
 
-
 # My Notes
 
 ## CRLF Line Endings
