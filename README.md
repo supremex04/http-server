@@ -47,4 +47,6 @@ Commands:
 ```
 $ curl -v 127.0.0.1:4221/echo/abc
 $ curl -v --header "User-Agent: foobar/1.2.3" http://localhost:4221/user-agent
+$ ab -n 10 -c 5 http://127.0.0.1:4221/ (This sends 10 requests, with 5 happening at the same time.)
+
 ```
