@@ -23,3 +23,5 @@ Content-Length: 3\r\n         // Header that specifies the size of the response 
 // Response body
 abc                           // The string from the request
 ```
+
+```BufferedReader``` and ```BufferedWriter``` internally convert byte<>string
