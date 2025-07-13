@@ -16,7 +16,8 @@ public class Main {
         logger.info("Logs will appear here!");
 
         try {
-            // ServerSocket creates a server that listens for incoming TCP connections on port 4221
+            // ServerSocket creates a server that listens for incoming TCP connections on
+            // port 4221
             // This socket does NOT send or receive data directly. it only accepts new
             // client connections.
             ServerSocket serverSocket = new ServerSocket(4221);
@@ -44,7 +45,7 @@ public class Main {
         // BufferedReader reads text from a character-input stream, buffering characters
         // for efficient reading.
         try (var reader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
-             var writer = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()))) {
+                var writer = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()))) {
 
             String requestLine = reader.readLine(); // Read only the first line (e.g., GET /path HTTP/1.1)
 
@@ -63,6 +64,22 @@ public class Main {
                         String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: "
                                 + echo.length() + "\r\n\r\n" + echo;
                         writer.write(fullResponse);
+                    } else if (path.split("/")[1].equals("user-agent")) {
+                        String headerLine;
+                        String userAgent = "";
+                        // reader.readLine only reads one line
+                        while ((headerLine = reader.readLine()) != null && !headerLine.isEmpty()) {
+                            if (headerLine.toLowerCase().startsWith("user-agent:")) {
+                                // substring(int index) returns part of the string starting at the given index.
+                                // trim () removes leading and trailing whitespace.
+                                userAgent = headerLine.substring("User-Agent:".length()).trim();
+                                break;
+                            }
+                        }
+                        String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: "
+                                + userAgent.length() + "\r\n\r\n" + userAgent;
+                        writer.write(fullResponse);
+
                     } else if (path.split("/")[1].equals("index.html")) {
                         response = OK_RESPONSE;
                         writer.write(response);

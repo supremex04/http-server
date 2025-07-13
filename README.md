@@ -8,20 +8,35 @@
 - `\n` (Line Feed): Moves the cursor to the next line (ASCII 10, 0x0A).
 - `\r\n` (CRLF): Used in protocols like HTTP to mark the end of a line; required to separate HTTP headers and body.
 - A CR immediately followed by an LF (`CRLF`, `\r\n`, or `0x0D0A`) moves the cursor to the beginning of the line and then down to the next line.
+HTTP Request: 
+```
+// Request line
+GET
+/user-agent (--path)
+HTTP/1.1
+\r\n
 
+// Headers
+Host: localhost:4221\r\n
+User-Agent: foobar/1.2.3\r\n  // Read this value
+Accept: */*\r\n
+\r\n
+
+// Request body (empty)
+```
 HTTP Response: 
 ``` 
 // Status line
-HTTP/1.1 200 OK
-\r\n                          // CRLF that marks the end of the status line
+HTTP/1.1 200 OK               // Status code must be 200
+\r\n
 
 // Headers
-Content-Type: text/plain\r\n  // Header that specifies the format of the response body
-Content-Length: 3\r\n         // Header that specifies the size of the response body, in bytes
-\r\n                          // CRLF that marks the end of the headers
+Content-Type: text/plain\r\n
+Content-Length: 12\r\n
+\r\n
 
 // Response body
-abc                           // The string from the request
+foobar/1.2.3                  // The value of `User-Agent`                        // The string from the request
 ```
 
 ```BufferedReader``` and ```BufferedWriter``` internally convert byte<>string
