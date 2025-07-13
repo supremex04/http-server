@@ -34,7 +34,7 @@ public class Main {
     private static void sendResponse(Socket acceptSocket) throws IOException {
 
         var requestStream = acceptSocket.getInputStream();
-        String response = OK_RESPONSE;
+        String response = NOT_FOUND_RESPONSE;
 
         // handle request
         try (var inStrReader = new InputStreamReader(requestStream);
@@ -48,8 +48,8 @@ public class Main {
 
                     String[] tokens = line.split("\\s+");
                     if (tokens.length < 3
-                            || (!"/index.html".equals(tokens[1]) && !"/".equals(tokens[1]))) {
-                        response = NOT_FOUND_RESPONSE;
+                            && ("/index.html".equals(tokens[1]) || "/".equals(tokens[1]))) {
+                        response = OK_RESPONSE;
                     }
                 }
 
