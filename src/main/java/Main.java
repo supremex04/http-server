@@ -13,25 +13,32 @@ public class Main {
     private static final String NOT_FOUND_RESPONSE = "HTTP/1.1 404 Not Found\r\n\r\n";
 
     public static void main(String[] args) {
-        logger.info("Logs will appear here!");
 
-        try {
-            // ServerSocket creates a server that listens for incoming TCP connections on
-            // port 4221
+        try (ServerSocket serverSocket = new ServerSocket(4221)) {
+            // ServerSocket creates a server that listens for incoming TCP connections on port 4221
             // This socket does NOT send or receive data directly. it only accepts new
             // client connections.
-            ServerSocket serverSocket = new ServerSocket(4221);
             serverSocket.setReuseAddress(true);
+            while (true) {
+                Socket clientSocket = serverSocket.accept(); // blocking call
+                logger.info("Accepted new connection");
 
-            Socket clientSocket = serverSocket.accept(); // Blocking call, waits for a client connection.
-            logger.info("accepted new connection");
+                // Handle client in a new thread
+                new Thread(() -> {
+                    try {
+                        sendResponse(clientSocket);
+                    } catch (IOException e) {
+                        logger.severe("Error handling client: " + e.getMessage());
+                    } finally {
+                        try {
+                            clientSocket.close();
+                        } catch (IOException e) {
+                            logger.severe("Error closing client socket: " + e.getMessage());
+                        }
+                    }
+                }).start();
+            }
 
-            // Handle request and send appropriate HTTP response.
-            sendResponse(clientSocket);
-
-            clientSocket.close(); // Close the connection with the client.
-            serverSocket.close(); // Close the server socket.
-            logger.info("closed connection");
         } catch (IOException e) {
             logger.severe("IOException: " + e.getMessage());
         }
