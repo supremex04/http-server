@@ -54,44 +54,11 @@ public class Main {
         try (var reader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
                 var writer = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()))) {
             Request request = new Request(reader);
-            String path = request.getPath();
+            RequestHandler reqHandler = new RequestHandler(request, writer);
+            reqHandler.handle();
 
 
-                // Check for malformed request or unsupported path
-                if (request.getMethod().equals("GET")) {
-                    if (path.equals("/")) {
-                        response = OK_RESPONSE;
-                        writer.write(response);
-                    } else if (path.split("/")[1].equals("echo")) {
-                        String echo = request.getPath().split("/")[2]; // first is empty string, second is "echo", third is payload
-                        String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: "
-                                + echo.length() + "\r\n\r\n" + echo;
-                        writer.write(fullResponse);
-                    } else if (path.split("/")[1].equals("user-agent")) {
-                        String headerLine;
-                        String userAgent = "";
-                        // reader.readLine only reads one line
-                        while ((headerLine = reader.readLine()) != null && !headerLine.isEmpty()) {
-                            if (headerLine.toLowerCase().startsWith("user-agent:")) {
-                                // substring(int index) returns part of the string starting at the given index.
-                                // trim () removes leading and trailing whitespace.
-                                userAgent = headerLine.substring("User-Agent:".length()).trim();
-                                break;
-                            }
-                        }
-                        String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: "
-                                + userAgent.length() + "\r\n\r\n" + userAgent;
-                        writer.write(fullResponse);
 
-                    } else if (path.split("/")[1].equals("index.html")) {
-                        response = OK_RESPONSE;
-                        writer.write(response);
-                    } else {
-                        writer.write(response);
-                    }
-                }
-
-                writer.flush(); // flush the buffer to the socket
                 System.out.println("Request: " + request.getrequestLine());
             
         }

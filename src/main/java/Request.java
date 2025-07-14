@@ -29,7 +29,7 @@ public class Request {
             throw new IOException("Malformed request line: " + requestLine);
         }
         this.method = parts[0];
-        this.path = parts[1];
+        this.path = parts[1].toLowerCase();
         this.version = parts[2];
         String headerLine;
         // isEmpty() is used to check till end of headers (in HTTP, blank line separates
@@ -41,7 +41,7 @@ public class Request {
             int colonIndex = headerLine.indexOf(':');
             // if no colon is found index is -1
             if (colonIndex != -1) {
-                String headerName = headerLine.substring(0, colonIndex).trim();
+                String headerName = headerLine.substring(0, colonIndex).trim().toLowerCase();
                 String headerValue = headerLine.substring(colonIndex + 1).trim();
                 headers.put(headerName, headerValue);
             }
@@ -68,7 +68,7 @@ public class Request {
     }
 
     public String getHeader(String name) {
-        return this.headers.get(name);
+        return this.headers.get(name.toLowerCase());
     }
 
 }
