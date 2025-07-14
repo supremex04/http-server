@@ -9,13 +9,13 @@ import java.util.logging.Logger;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
-    private static final String OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n";
     private static final String NOT_FOUND_RESPONSE = "HTTP/1.1 404 Not Found\r\n\r\n";
 
     public static void main(String[] args) {
 
         try (ServerSocket serverSocket = new ServerSocket(4221)) {
-            // ServerSocket creates a server that listens for incoming TCP connections on port 4221
+            // ServerSocket creates a server that listens for incoming TCP connections on
+            // port 4221
             // This socket does NOT send or receive data directly. it only accepts new
             // client connections.
             serverSocket.setReuseAddress(true);
@@ -45,8 +45,6 @@ public class Main {
     }
 
     private static void sendResponse(Socket acceptSocket) throws IOException {
-        String response = NOT_FOUND_RESPONSE;
-
         // getInputStream gives raw bytes whereas InputStreamReader converts bytes to
         // characters. (default UTF-8 encoding)
         // BufferedReader reads text from a character-input stream, buffering characters
@@ -57,10 +55,8 @@ public class Main {
             RequestHandler reqHandler = new RequestHandler(request, writer);
             reqHandler.handle();
 
+            System.out.println("Request: " + request.getrequestLine());
 
-
-                System.out.println("Request: " + request.getrequestLine());
-            
         }
     }
 }
