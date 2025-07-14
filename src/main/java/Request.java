@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 public class Request {
     private BufferedReader  reader;
     private String method;
@@ -30,7 +32,7 @@ public class Request {
         this.path = parts[1];
         this.version = parts[2];
         String headerLine;
-        
+
 
 
     }

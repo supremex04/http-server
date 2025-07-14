@@ -21,7 +21,7 @@ public class Main {
             serverSocket.setReuseAddress(true);
             while (true) {
                 Socket clientSocket = serverSocket.accept(); // blocking call
-                logger.info("Accepted new connection");
+                logger.info("Accepted new connect");
 
                 // Handle client in a new thread
                 new Thread(() -> {
