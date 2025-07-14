@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Request {
     private BufferedReader reader;
+    private String requestLine;
     private String method;
     private String path;
     private String version;
@@ -19,6 +20,7 @@ public class Request {
 
     private void parseRequest() throws IOException {
         String requestLine = reader.readLine();
+        this.requestLine = requestLine;
         if (requestLine == null || requestLine.isEmpty()) {
             throw new IOException("Empty request line");
         }
@@ -46,7 +48,9 @@ public class Request {
         }
 
     }
-
+    public String getrequestLine() {
+        return this.requestLine;
+    }
     public String getMethod() {
         return this.method;
     }

@@ -53,21 +53,17 @@ public class Main {
         // for efficient reading.
         try (var reader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
                 var writer = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()))) {
+            Request request = new Request(reader);
+            String path = request.getPath();
 
-            String requestLine = reader.readLine(); // Read only the first line (e.g., GET /path HTTP/1.1)
-
-            if (requestLine != null) {
-                String[] tokens = requestLine.split("\\s+"); // Split by one or more whitespace characters
-                String method = tokens[0]; // HTTP method (e.g. GET)
-                String path = tokens[1]; // Requested path (e.g. /index.html)
 
                 // Check for malformed request or unsupported path
-                if (method.equals("GET")) {
+                if (request.getMethod().equals("GET")) {
                     if (path.equals("/")) {
                         response = OK_RESPONSE;
                         writer.write(response);
                     } else if (path.split("/")[1].equals("echo")) {
-                        String echo = path.split("/")[2]; // first is empty string, second is "echo", third is payload
+                        String echo = request.getPath().split("/")[2]; // first is empty string, second is "echo", third is payload
                         String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: "
                                 + echo.length() + "\r\n\r\n" + echo;
                         writer.write(fullResponse);
@@ -96,8 +92,8 @@ public class Main {
                 }
 
                 writer.flush(); // flush the buffer to the socket
-                System.out.println("Request: " + requestLine);
-            }
+                System.out.println("Request: " + request.getrequestLine());
+            
         }
     }
 }
