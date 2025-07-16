@@ -42,16 +42,25 @@ foobar/1.2.3                  // The value of `User-Agent`                      
 ```
 
 ```BufferedReader``` and ```BufferedWriter``` internally convert byte<>string
-```byte[] fileBytes = Files.readAllBytes(file.toPath());``` convert a file into its bytes array 
-HTTP works over TCP, which is a byte-stream protocol — so anything (text or binary) can be sent.
+### Sending Files Over HTTP
+
+```java
+byte[] fileBytes = Files.readAllBytes(file.toPath());
+```
+
+This converts a file into its byte array.
+
+---
+
+HTTP works over TCP, which is a **byte-stream protocol** — so anything (text or binary) can be sent.
 
 When you're sending a file (image, PDF, file etc.) or custom data, you:
 
-Set the correct Content-Type (like application/octet-stream)
+- Set the correct `Content-Type` (like `application/octet-stream`)
+- Then write the **raw bytes** to the response body
 
-Then write the raw bytes to the response body
+For **binary responses** like files (`application/octet-stream`), you **must write bytes**, so use `OutputStream` directly.
 
-For binary responses like files (application/octet-stream), you must write bytes, so use OutputStream directly.
 
 Commands:
 ```
