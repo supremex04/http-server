@@ -45,6 +45,9 @@ public class RequestHandler {
                             + new String(fileBytes);
                     sendResponse(fullResponse);
                 }
+                else {
+                    send404();
+                }
 
             }
 
