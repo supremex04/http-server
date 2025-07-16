@@ -42,11 +42,22 @@ foobar/1.2.3                  // The value of `User-Agent`                      
 ```
 
 ```BufferedReader``` and ```BufferedWriter``` internally convert byte<>string
+```byte[] fileBytes = Files.readAllBytes(file.toPath());``` convert a file into its bytes array 
+HTTP works over TCP, which is a byte-stream protocol — so anything (text or binary) can be sent.
+
+When you're sending a file (image, PDF, file etc.) or custom data, you:
+
+Set the correct Content-Type (like application/octet-stream)
+
+Then write the raw bytes to the response body
+
+For binary responses like files (application/octet-stream), you must write bytes, so use OutputStream directly.
 
 Commands:
 ```
 $ curl -v 127.0.0.1:4221/echo/abc
 $ curl -v --header "User-Agent: foobar/1.2.3" http://localhost:4221/user-agent
 $ ab -n 10 -c 5 http://127.0.0.1:4221/ (This sends 10 requests, with 5 happening at the same time.)
+$ ./your_program.sh --directory /home/delta/Desktop/projects/java/http-server-java/files/ (for me to copy)
 
 ```
