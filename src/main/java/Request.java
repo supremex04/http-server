@@ -46,11 +46,21 @@ public class Request {
                 headers.put(headerName, headerValue);
             }
         }
+        String requestBody = null;
+        if (headers.containsKey("content-length")) {
+            int contentLength = Integer.parseInt(headers.get("content-length"));
+            char[] bodyChars = new char[contentLength];
+            int read = reader.read(bodyChars, 0, contentLength);
+            requestBody = new String(bodyChars, 0, read);
+            headers.put("body", requestBody);
+        }
 
     }
+
     public String getrequestLine() {
         return this.requestLine;
     }
+
     public String getMethod() {
         return this.method;
     }

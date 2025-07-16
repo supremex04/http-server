@@ -45,6 +45,7 @@ foobar/1.2.3                  // The value of `User-Agent`                      
 ### Sending Files Over HTTP
 
 ```java
+File file = new File(filePath);
 byte[] fileBytes = Files.readAllBytes(file.toPath());
 ```
 

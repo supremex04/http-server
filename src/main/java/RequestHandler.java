@@ -1,5 +1,6 @@
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -44,8 +45,7 @@ public class RequestHandler {
                             + "\r\n\r\n"
                             + new String(fileBytes);
                     sendResponse(fullResponse);
-                }
-                else {
+                } else {
                     send404();
                 }
 
@@ -55,6 +55,23 @@ public class RequestHandler {
                 sendResponse("HTTP/1.1 200 OK\r\n\r\n");
             } else {
                 send404();
+            }
+        }
+
+        if (method.equals("POST")) {
+            if (path[1].equals("files")) {
+                // converting String to integer
+                // int contentLength = Integer.parseInt(request.getHeader("Content-Length"));
+                String filePath = Main.map.get("dir") + path[2];
+                String requestBody = request.getHeader("body");
+                try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
+                    fileWriter.write(requestBody);
+                    sendResponse("HTTP/1.1 201 Created\r\n\r\n");
+                } catch (IOException e) {
+                    send404();
+                    System.out.println("Error writing on file: "+ e.getMessage());;
+                }
+
             }
         }
 
