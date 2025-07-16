@@ -5,13 +5,25 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
     private static final String NOT_FOUND_RESPONSE = "HTTP/1.1 404 Not Found\r\n\r\n";
-
+    public static Map<String, String> map = new HashMap<>();
     public static void main(String[] args) {
+
+        try {
+            for (int i = 0; i< args.length; i++){
+                if (args[i].equals("--directory")) {
+                    map.put("dir", args[i+1]);
+                }
+            }
+        } catch (Exception e){
+            System.out.println("args error: " + e.getMessage());
+        }
 
         try (ServerSocket serverSocket = new ServerSocket(4221)) {
             // ServerSocket creates a server that listens for incoming TCP connections on
