@@ -68,6 +68,6 @@ Commands:
 $ curl -v 127.0.0.1:4221/echo/abc
 $ curl -v --header "User-Agent: foobar/1.2.3" http://localhost:4221/user-agent
 $ ab -n 10 -c 5 http://127.0.0.1:4221/ (This sends 10 requests, with 5 happening at the same time.)
-$ ./your_program.sh --directory /home/delta/Desktop/projects/java/http-server-java/files/ (for me to copy)
+$ ./your_program.sh --directory /home/delta/Desktop/projects/http-server/files/ (for me to copy)
 $ curl -v --data "12345" -H "Content-Type: application/octet-stream" http://localhost:4221/files/file_
 ```

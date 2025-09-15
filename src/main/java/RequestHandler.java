@@ -19,12 +19,19 @@ public class RequestHandler {
     }
 
     public void handle() throws IOException {
+            System.out.println("=== HANDLE METHOD CALLED ===");
+
         String method = request.getMethod();
         String[] path = request.getPath().split("/");
+        String encoding = request.getHeader("accept-encoding");
         if (method.equals("GET")) {
             if (request.getPath().equals("/")) {
                 sendResponse("HTTP/1.1 200 OK\r\n\r\n");
-            } else if (path[1].equals("echo")) {
+            } else if (encoding != null && encoding.contains("gzip")){
+                String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Encoding: gzip \r\n\r\n";
+                sendResponse(fullResponse);
+            }
+            else if (path[1].equals("echo")) {
                 String echo = path[2]; // first is empty string, second is "echo", third is payload
                 String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: "
                         + echo.length() + "\r\n\r\n" + echo;
@@ -53,7 +60,8 @@ public class RequestHandler {
 
             else if (path[1].equals("index.html")) {
                 sendResponse("HTTP/1.1 200 OK\r\n\r\n");
-            } else {
+            } 
+            else {
                 send404();
             }
         }

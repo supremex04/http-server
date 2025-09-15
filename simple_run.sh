@@ -1,6 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-set -e # Exit early if any commands fail
+# Exit on any error
+set -e
 
 # Change to the directory containing this script
 cd "$(dirname "$0")"
@@ -9,7 +10,9 @@ cd "$(dirname "$0")"
 mkdir -p classes
 
 # Compile all Java files
+echo "Compiling Java files..."
 javac -d classes src/main/java/*.java
 
 # Run the Main class
-exec java -cp classes Main "$@"
+echo "Starting server..."
+java -cp classes Main "$@"
