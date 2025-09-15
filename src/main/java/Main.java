@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
@@ -57,18 +58,17 @@ public class Main {
     }
 
     private static void sendResponse(Socket acceptSocket) throws IOException {
-        // getInputStream gives raw bytes whereas InputStreamReader converts bytes to
-        // characters. (default UTF-8 encoding)
-        // BufferedReader reads text from a character-input stream, buffering characters
-        // for efficient reading.
-        try (var reader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
-                var writer = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()))) {
-            Request request = new Request(reader);
-            RequestHandler reqHandler = new RequestHandler(request, writer);
-            reqHandler.handle();
+    try (var reader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
+         var writer = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()))) {
 
-            System.out.println("Request: " + request.getrequestLine());
+        Request request = new Request(reader);
+        OutputStream rawOut = acceptSocket.getOutputStream(); // raw bytes for gzip
 
-        }
+        RequestHandler reqHandler = new RequestHandler(request, writer, rawOut);
+        reqHandler.handle();
+
+        System.out.println("Request: " + request.getrequestLine());
     }
+}
+
 }
